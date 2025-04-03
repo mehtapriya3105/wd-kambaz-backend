@@ -30,12 +30,24 @@ if (process.env.NODE_ENV !== "development") {
 app.use(session(sessionOptions));
 
 
+const allowedOrigins = [
+  process.env.NETLIFY_URL,
+ "http://localhost:5173"
+];
+
 app.use(
   cors({
     credentials: true,
-    origin: process.env.NETLIFY_URL || "http://localhost:5173",  
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
   })
 );
+
 
 
 app.use(express.json()); 
