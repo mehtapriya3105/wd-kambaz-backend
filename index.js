@@ -32,7 +32,8 @@ app.use(session(sessionOptions));
 
 const allowedOrigins = [
   process.env.NETLIFY_URL,
- "http://localhost:5173"
+ "http://localhost:5173",
+  "https://wd-assignment1-priya.netlify.app",
 ];
 
 app.use(
